@@ -3,16 +3,16 @@ library(seewave)
 library(tuneR)
 library(soundecology)
 
-#---Se crea un objeto con el directorio de trabajo-----------------------------------------------
-a <-setwd("C:/Users/Santigo Ruiz/Desktop/CANTOS/TESIS/Dia-Noche/Quemados")
+#---Setting the working directory-----------------------------------------------
+a <-setwd("C:/Users/Santigo Ruiz/Burned/")
 
-#---Se hace una lista de los archivos presentes en dicho directorio---(con formato .wav)----------------
+#---File list with the wav files inside the working directory----------------
 files_sound <- list.files(a,".wav")
 
-#---Se crea un data frame llamado "data" a la cual llegaran los resultados del files_sound------------------
+#---Dataframe where the output will be stored------------------
 data <- as.data.frame(files_sound)
 
-#-- Se debe crear un renglon (es decir, una columna) por cada variable que vayamos a calcular--------------
+#--We will make a empty column per each index we want to calculate--------------
 
 data$H=NA
 data$Hf=NA
@@ -29,7 +29,7 @@ data$BI=NA
 
 ####data$nombres=files_sound
 
-# Luego se crea un loop para calcular los índices acústicos para todos los archivos del files_sound-----
+# Loop for the acoustic indices calculation-----
 
 for(i in 1:length(files_sound))
 
@@ -46,7 +46,7 @@ ent=H(song,
 timent=sh(spec)
 
 AcCI=ACI(song)
-AcCI1=ACI(song,flim=c(0,2))
+AcCI1=ACI(song,flim=c(0,2)) # Acoustic Complexity index for different frequency bandwidth
 AcCI2=ACI(song,flim=c(2,4))
 AcCI3=ACI(song,flim=c(4,6))
 AcCI4=ACI(song,flim=c(6,8))
@@ -68,7 +68,7 @@ bi=bioacoustic_index(song,
                      max_freq = 10000, 
                      fft_w = 512)
 
-# Luego de calculados se insertan los resultados en el data frame creado anteriormente-----------
+# Then, we will append the loop output inside the empty columns-----------
 
 data$H[i]=ent
 data$Hf[i]=timent
@@ -83,7 +83,7 @@ data$AEI[i]=aev$aei_left
 data$BI[i]=bi$left_area
 }
 
-# Por ultimo, se exporta el data frame en el formato que se desee.
+# Lastly, we can write the dataframe as .csv
 
 
 write.table(data,"C:/Users/Santigo Ruiz/Desktop/CANTOS/TESIS_2.0/Result_QUEMADOS.csv")
