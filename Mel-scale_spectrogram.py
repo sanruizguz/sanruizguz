@@ -61,7 +61,7 @@ for recording in glob.iglob(f'{path_of_the_directory}/*.wav'):
     fig, ax = plt.subplots()
     S_dB = librosa.power_to_db(S, ref=np.max)
     # Spectrogram settings (you can change some settings such as the palette of colors, axis etc)
-    img = librosa.display.specshow(S_dB,sr=s,fmax=6000, ax=ax)
+    img = librosa.display.specshow(S_dB,sr=s,fmax=6000, ax=ax, cmap='gray_r')
     list_png.append([fig])
     # Then, we will name the new spec with the filename with the png extension
     plt.savefig(fname=name)
